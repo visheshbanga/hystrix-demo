@@ -22,7 +22,7 @@ public class CustomHystrixCommandExecutionHook extends HystrixCommandExecutionHo
   @Override
   public <T> void onStart(HystrixInvokable<T> commandInstance) {
 
-    LOGGER.debug("[onStart] - {}", Thread.currentThread().getName());
+    LOGGER.info("[onStart] - {}", Thread.currentThread().getName());
 
     HystrixRequestContext.initializeContext();
     setHystrixRequestVariables();
@@ -31,28 +31,27 @@ public class CustomHystrixCommandExecutionHook extends HystrixCommandExecutionHo
   @Override
   public <T> void onSuccess(HystrixInvokable<T> commandInstance) {
 
-    LOGGER.debug("[onSuccess] - {}", Thread.currentThread().getName());
+    LOGGER.info("[onSuccess] - {}", Thread.currentThread().getName());
 
-    HystrixRequestContext.getContextForCurrentThread().shutdown();
     super.onSuccess(commandInstance);
   }
 
   @Override
   public <T> void onThreadStart(HystrixInvokable<T> commandInstance) {
 
-    LOGGER.debug("[onThreadStart] - {}", Thread.currentThread().getName());
+    LOGGER.info("[onThreadStart] - {}", Thread.currentThread().getName());
   }
 
   @Override
   public <T> void onThreadComplete(HystrixInvokable<T> commandInstance) {
 
-    LOGGER.debug("[onThreadComplete] - {}", Thread.currentThread().getName());
+    LOGGER.info("[onThreadComplete] - {}", Thread.currentThread().getName());
   }
 
   @Override
   public <T> Exception onError(HystrixInvokable<T> commandInstance, HystrixRuntimeException.FailureType failureType, Exception e) {
 
-    LOGGER.debug("[onError] - {}", Thread.currentThread().getName());
+    LOGGER.info("[onError] - {}", Thread.currentThread().getName());
 
     HystrixRequestContext.getContextForCurrentThread().shutdown();
     return super.onError(commandInstance, failureType, e);
@@ -61,7 +60,7 @@ public class CustomHystrixCommandExecutionHook extends HystrixCommandExecutionHo
   @Override
   public <T> void onExecutionStart(HystrixInvokable<T> commandInstance) {
 
-    LOGGER.debug("[onExecutionStart] - {}", Thread.currentThread().getName());
+    LOGGER.info("[onExecutionStart] - {}", Thread.currentThread().getName());
 
     setThreadContext();
   }
@@ -69,7 +68,7 @@ public class CustomHystrixCommandExecutionHook extends HystrixCommandExecutionHo
   @Override
   public <T> void onExecutionSuccess(HystrixInvokable<T> commandInstance) {
 
-    LOGGER.debug("[onExecutionSuccess] - {}", Thread.currentThread().getName());
+    LOGGER.info("[onExecutionSuccess] - {}", Thread.currentThread().getName());
 
     if (Objects.nonNull(commandInstance)) {
       LOGGER.info(((HystrixCommand<T>) commandInstance).getCommandKey().toString() + " hit successfully");
@@ -79,7 +78,7 @@ public class CustomHystrixCommandExecutionHook extends HystrixCommandExecutionHo
   @Override
   public <T> void onFallbackStart(HystrixInvokable<T> commandInstance) {
 
-    LOGGER.debug("[onFallbackStart] - {}", Thread.currentThread().getName());
+    LOGGER.info("[onFallbackStart] - {}", Thread.currentThread().getName());
 
     setThreadContext();
   }
@@ -87,7 +86,7 @@ public class CustomHystrixCommandExecutionHook extends HystrixCommandExecutionHo
   @Override
   public <T> void onFallbackSuccess(HystrixInvokable<T> commandInstance) {
 
-    LOGGER.debug("[onFallbackSuccess] - {}", Thread.currentThread().getName());
+    LOGGER.info("[onFallbackSuccess] - {}", Thread.currentThread().getName());
   }
 
   private void setHystrixRequestVariables() {

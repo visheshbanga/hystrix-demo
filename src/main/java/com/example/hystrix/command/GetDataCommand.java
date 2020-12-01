@@ -9,7 +9,7 @@ public class GetDataCommand extends HystrixCommand<String> {
   private String param;
 
   public GetDataCommand(String param) {
-    super(HystrixCommandGroupKey.Factory.asKey("default"));
+    super(HystrixCommandGroupKey.Factory.asKey("custom-hystrix-command"));
     this.param = param;
   }
 

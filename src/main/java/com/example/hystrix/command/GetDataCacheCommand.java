@@ -9,7 +9,7 @@ public class GetDataCacheCommand extends HystrixCommand<String> {
   private String param;
 
   public GetDataCacheCommand(String param) {
-    super(HystrixCommandGroupKey.Factory.asKey("default"));
+    super(HystrixCommandGroupKey.Factory.asKey("custom-hystrix-command"));
     this.param = param;
   }
 
@@ -20,6 +20,6 @@ public class GetDataCacheCommand extends HystrixCommand<String> {
 
   @Override
   protected String getCacheKey() {
-    return String.valueOf(param);
+    return param;
   }
 }

@@ -9,12 +9,8 @@ public class DataService {
 
   public String getData(String key) throws InterruptedException {
 
-    log.info("Start getData");
+    log.info("Inside getData");
 
-    // wait for 5 seconds
-//    Thread.sleep(5000);
-
-    log.info("End getData");
     return key;
   }
 }
